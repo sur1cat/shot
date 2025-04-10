@@ -10,3 +10,5 @@
 /.idea/
 /inspectionProfiles/Project_Default.xml
 /url_shortener.iml
+/vcs.xml
+../.idea
