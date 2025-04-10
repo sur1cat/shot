@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:14
+    container_name: url_shortener_db
+    environment:
+      POSTGRES_USER: suricat
+      POSTGRES_PASSWORD: 111222333
+      POSTGRES_DB: urlshortener
+    ports:
+      - "5454:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U suricat"] # Изменено здесь с postgres на suricat
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
