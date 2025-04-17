@@ -34,8 +34,6 @@ type TagRequest struct {
 func main() {
 	database.Connect()
 
-	database.DB.AutoMigrate(&models.User{}, &models.Link{}, &models.ClickStat{}, &models.Tag{}, &models.LinkTag{})
-
 	router := gin.Default()
 
 	router.POST("/api/register", handlers.Register)
