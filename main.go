@@ -48,10 +48,10 @@ func main() {
 		api.POST("/links", createShortLink)
 		api.GET("/links/:code", getLinkInfo)
 		api.GET("/links", getAllLinks)
-		api.PUT("/links/:id", updateLink)
-		api.DELETE("/links/:id", deleteLink)
+		api.PUT("/links/:code", updateLink)
+		api.DELETE("/links/:code", deleteLink)
 
-		api.GET("/links/:id/stats", getLinkStats)
+		api.GET("/links/:code/stats", getLinkStats)
 		api.GET("/user/stats", getUserStats)
 
 		api.GET("/user/profile", getUserProfile)
@@ -61,8 +61,8 @@ func main() {
 		api.GET("/tags", getAllTags)
 		api.GET("/tags/:name/links", getLinksByTag)
 
-		api.POST("/links/:id/tags", addTagToLink)
-		api.DELETE("/links/:id/tags/:tag_id", removeTagFromLink)
+		api.POST("/links/:code/tags", addTagToLink)
+		api.DELETE("/links/:code/tags/:tag_id", removeTagFromLink)
 		api.GET("/dashboard", getDashboardData)
 	}
 
