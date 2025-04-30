@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"time"
-	"url_shortener/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -20,8 +19,10 @@ func Connect() {
 	dbname := getEnv("DB_NAME", "urlshortener")
 	port := getEnv("DB_PORT", "5454")
 
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=UTC",
-		host, user, password, dbname, port)
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=UTC",
+		host, user, password, dbname, port,
+	)
 
 	var err error
 	maxRetries := 5
@@ -30,22 +31,15 @@ func Connect() {
 		if err == nil {
 			break
 		}
-		log.Printf("Failed to connect to database (attempt %d/%d): %v", i+1, maxRetries, err)
-		time.Sleep(time.Second * 3)
+		log.Printf("Failed to connect (attempt %d/%d): %v", i+1, maxRetries, err)
+		time.Sleep(3 * time.Second)
 	}
 
 	if err != nil {
-		log.Fatal("Failed to connect to database after multiple attempts:", err)
+		log.Fatal("Database connection failed:", err)
 	}
 
-	log.Println("Connected to database successfully")
-
-	err = DB.AutoMigrate(&models.User{}, &models.Link{}, &models.ClickStat{}, &models.Tag{}, &models.LinkTag{})
-	if err != nil {
-		log.Fatal("Failed to migrate database:", err)
-	}
-
-	log.Println("Database migration completed")
+	log.Println("Database connection established")
 }
 
 func getEnv(key, defaultValue string) string {

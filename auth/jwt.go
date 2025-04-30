@@ -13,7 +13,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtKey = []byte(getEnv("JWT_SECRET", "your_default_secret_key"))
+var jwtKey = []byte(getEnv("JWT_SECRET", "18a2166613b2842d87bb4f6cb4bd21a3f6a519716fd17c6630a9358ef8c8f5912ede28e091861b9917e834c6dd7aa0f0cf5f16b9bd19753ac6bcb1c89ede975f"))
 var tokenExpiration = 24 * time.Hour
 
 type Claims struct {
@@ -21,7 +21,6 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-// GenerateToken creates a new JWT token for a user
 func GenerateToken(user *models.User) (string, error) {
 	expirationTime := time.Now().Add(tokenExpiration)
 	claims := &Claims{
